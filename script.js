@@ -2,8 +2,8 @@ let students = [];
 
 const form = document.getElementById("studentForm");
 const studentList = document.getElementById("studentList");
-
 form.addEventListener("submit", function(event) {
+    
     event.preventDefault();
 
     const name = document.getElementById("name").value.trim();
@@ -48,3 +48,13 @@ function deleteStudent(roll) {
 
     displayStudents();
 }
+document.getElementById("search").addEventListener("input", function () {
+    let value = this.value.toLowerCase();
+
+    let filteredStudents = students.filter(student =>
+        student.name.toLowerCase().includes(value) ||
+        student.roll.toLowerCase().includes(value)
+    );
+
+    displayStudents(filteredStudents);
+});
