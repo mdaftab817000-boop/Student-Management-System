@@ -16,7 +16,6 @@ form.addEventListener("submit", function(event) {
     students.push(student);
 
     displayStudents();
-
     form.reset();
 });
 
