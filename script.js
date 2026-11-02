@@ -1,65 +1,51 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+let students = [];
+
+const form = document.getElementById("studentForm");
+const studentList = document.getElementById("studentList");
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const roll = document.getElementById("roll").value.trim();
+    const course = document.getElementById("course").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    const student = { name, roll, course, email };
+
+    students.push(student);
+
+    displayStudents();
+
+    form.reset();
+});
+
+function displayStudents() {
+    studentList.innerHTML = "";
+
+    students.forEach(function(student) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.roll}</td>
+            <td>${student.course}</td>
+            <td>${student.email}</td>
+            <td>
+                <button onclick="deleteStudent('${student.roll}')">
+                    Delete
+                </button>
+            </td>
+        `;
+
+        studentList.appendChild(row);
+    });
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    padding: 30px;
-}
+function deleteStudent(roll) {
+    students = students.filter(function(student) {
+        return student.roll !== roll;
+    });
 
-h1 {
-    background: #243b55;
-    color: white;
-    text-align: center;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    color: #243b55;
-    margin: 25px 0 15px;
-}
-
-form {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-}
-
-input {
-    padding: 12px;
-    margin: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    background: #243b55;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-table {
-    width: 100%;
-    background: white;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 15px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-th {
-    background: #243b55;
-    color: white;
+    displayStudents();
 }
